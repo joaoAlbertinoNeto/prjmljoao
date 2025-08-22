@@ -1,0 +1,31 @@
+import streamlit as st
+import asyncio
+from confluent_kafka import Producer
+import json
+import requests
+
+# Configuração Kafka (ajuste conforme necessário)
+KAFKA_BOOTSTRAP_SERVERS = 'localhost:29092'
+KAFKA_TOPIC = 'movements'
+
+producer = Producer({'bootstrap.servers': KAFKA_BOOTSTRAP_SERVERS})
+
+# Estado inicial do evento fixo
+fixedEvt = {
+    "tipo_produto": "Móvel",
+    "tipo_pessoa": "Física",
+    "mes": 8,
+    "populacao_estimada_numerica2": 15000.0,
+    "uf": "SP",
+    "empresa": "EMPRESA X",
+    "tecnologia_geracao": "4G",
+    "modalidade_cobranca": "Pré-pago",
+    "populacao_estimada_numerica": 15000.0,
+    "grupo_economico": "GRUPO A",
+    "populacao_estimada": "15000",
+    "municipio": "São Paulo",
+    "codigo_ibge_municipio": 3550308,
+    "latitude"
+
+
+
