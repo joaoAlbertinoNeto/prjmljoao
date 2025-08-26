@@ -1,0 +1,27 @@
+@startuml
+!define C4P https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master
+!includeurl C4P/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+Person(user, "Usuário", "Cliente web/CLI")
+
+System_Boundary(sys, "Sistema Análise Anatel") {
+  Container(site, "site", "Web/App", "UI para interação do usuário")
+  Container(sb, "apiaclaccessmovement", "Spring Boot 3 (Java 21)", "API de acesso e orquestração")
+  ContainerDb(db, "Banco de Dados", "MySQL/MongoDB", "Persistência")
+  Container(kafka, "Kafka", "Mensageria", "Tópico movements")
+  Container(ml, "ms-service", "Python FastAPI / Notebooks", "Treino e inferência de ML")
+}
+
+System_Ext(anatel, "Dados Públicos Anatel", "Datasets abertos")
+
+Rel(user, site, "HTTP/HTTPS")
+Rel(site, sb, "REST")
+Rel(sb, kafka, "produce/consume")
+Rel(sb, db, "CRUD")
+Rel(sb, ml, "REST / gRPC", "JSON")
+Rel(ml, anatel, "Leitura de dados", "CSV/Parquet")
+
+SHOW_LEGEND()
+@enduml
